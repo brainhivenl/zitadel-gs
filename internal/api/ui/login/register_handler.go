@@ -22,6 +22,8 @@ type registerFormData struct {
 	Firstname    string              `schema:"firstname"`
 	Lastname     string              `schema:"lastname"`
 	Language     string              `schema:"language"`
+	Nickname     string              `schema:"nickname"`
+	DateOfBirth  string              `schema:"date-of-birth"`
 	Password     string              `schema:"register-password"`
 	Password2    string              `schema:"register-password-confirmation"`
 	TermsConfirm bool                `schema:"terms-confirm"`
@@ -76,7 +78,12 @@ func (l *Login) handleRegisterCheck(w http.ResponseWriter, r *http.Request) {
 	// without breaking existing actions.
 	// Also, if that field is needed, we probably also should provide it
 	// for ExternalAuthentication.
-	user, metadatas, err := l.runPreCreationActions(authRequest, r, data.toHumanDomain(), make([]*domain.Metadata, 0), resourceOwner, domain.FlowTypeInternalAuthentication)
+	user, metadatas, err := l.runPreCreationActions(authRequest, r, data.toHumanDomain(), []*domain.Metadata{
+		&domain.Metadata{
+			Key:   "dateOfBirth",
+			Value: []byte(data.DateOfBirth),
+		},
+	}, resourceOwner, domain.FlowTypeInternalAuthentication)
 	if err != nil {
 		l.renderRegister(w, r, authRequest, data, err)
 		return
@@ -192,6 +199,7 @@ func (d registerFormData) toHumanDomain() *domain.Human {
 		Profile: &domain.Profile{
 			FirstName:         d.Firstname,
 			LastName:          d.Lastname,
+			NickName:          d.Nickname,
 			PreferredLanguage: language.Make(d.Language),
 		},
 		Password: &domain.Password{

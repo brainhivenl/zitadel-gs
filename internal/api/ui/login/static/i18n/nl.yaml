@@ -234,6 +234,8 @@ RegistrationUser:
   UsernameLabel: Gebruikersnaam
   FirstnameLabel: Voornaam
   LastnameLabel: Achternaam
+  NicknameLabel: Nickname
+  DateOfBirthLabel: Geboortedatum
   LanguageLabel: Taal
   German: Deutsch
   English: English
