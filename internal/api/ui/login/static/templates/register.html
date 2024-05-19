@@ -33,6 +33,19 @@
             </div>
         </div>
 
+        <div class="double-col">
+            <div class="lgn-field">
+                <label class="lgn-label" for="nickname">{{t "RegistrationUser.NicknameLabel"}}</label>
+                <input class="lgn-input" type="text" id="nickname" name="nickname" autocomplete="nickname"
+                    value="{{ .Nickname }}" autofocus required>
+            </div>
+            <div class="lgn-field">
+                <label class="lgn-label" for="date-of-birth">{{t "RegistrationUser.DateOfBirthLabel"}}</label>
+                <input class="lgn-input" type="text" id="date-of-birth" name="date-of-birth" autocomplete="date-of-birth"
+                    value="{{ .DateOfBirth }}" required>
+            </div>
+        </div>
+
         <div class="lgn-field double">
             <label class="lgn-label" for="email">{{t "RegistrationUser.EmailLabel"}}</label>
             <input class="lgn-input" type="email" id="email" name="email" autocomplete="email" value="{{ .Email }}" required>
