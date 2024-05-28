@@ -188,10 +188,12 @@ func (q *Queries) ActivePublicKeys(ctx context.Context, t time.Time) (keys *Publ
 		t = time.Now()
 	}
 	stmt, args, err := query.Where(
-		sq.And{
-			sq.Eq{KeyColInstanceID.identifier(): authz.GetInstance(ctx).InstanceID()},
-			sq.Gt{KeyPublicColExpiry.identifier(): t},
-		}).ToSql()
+		sq.Eq{KeyColInstanceID.identifier(): authz.GetInstance(ctx).InstanceID()},
+	//sq.And{
+	//	sq.Eq{KeyColInstanceID.identifier(): authz.GetInstance(ctx).InstanceID()},
+	//	sq.Gt{KeyPublicColExpiry.identifier(): t},
+	//}
+	).ToSql()
 	if err != nil {
 		return nil, zerrors.ThrowInternal(err, "QUERY-SDFfg", "Errors.Query.SQLStatement")
 	}
